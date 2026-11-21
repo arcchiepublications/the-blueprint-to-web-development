@@ -1,0 +1,1176 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>Unit 4: Interactive Student Information | Unit 4</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --page-bg: #f3f6fb;
+            --card-bg: #ffffff;
+            --text-color: #243247;
+            --muted-color: #64748b;
+            --accent: #2457c5;
+            --border-color: #dce4f0;
+            --soft-bg: #edf3ff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--page-bg);
+            color: var(--text-color);
+            font-family: Arial, Helvetica, sans-serif;
+            transition: background-color 0.25s, color 0.25s;
+        }
+
+        body.dark-mode {
+            --page-bg: #101827;
+            --card-bg: #1c293b;
+            --text-color: #edf3ff;
+            --muted-color: #b3c0d3;
+            --accent: #8db4ff;
+            --border-color: #39485d;
+            --soft-bg: #273750;
+        }
+
+        .hero {
+            padding: 38px 20px;
+            color: white;
+            background: linear-gradient(125deg, #173b83, #3877d5);
+        }
+
+        .hero p {
+            color: #e1eaff;
+        }
+
+        .page-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 28px 16px 45px;
+        }
+
+        .panel {
+            height: 100%;
+            padding: 24px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgb(20 40 80 / 5%);
+        }
+
+        .panel h2,
+        .panel h3 {
+            color: var(--text-color);
+        }
+
+        .section-label {
+            margin-bottom: 7px;
+            color: var(--accent);
+            font-size: 0.77rem;
+            font-weight: 700;
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+        }
+
+        .form-label {
+            font-weight: 600;
+        }
+
+        .form-control,
+        .form-select {
+            min-height: 44px;
+            color: var(--text-color);
+            background-color: var(--card-bg);
+            border-color: var(--border-color);
+        }
+
+        .form-control::placeholder {
+            color: var(--muted-color);
+            opacity: 0.8;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            color: var(--text-color);
+            background-color: var(--card-bg);
+        }
+
+        .dark-mode .form-select option {
+            color: var(--text-color);
+            background: var(--card-bg);
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .dark-mode .btn-primary {
+            color: #10203b;
+        }
+
+        .btn-outline-secondary {
+            color: var(--text-color);
+            border-color: var(--border-color);
+        }
+
+        .dark-mode .btn-outline-secondary:hover {
+            color: #101827;
+        }
+
+        .muted {
+            color: var(--muted-color);
+        }
+
+        .preview-box {
+            padding: 18px;
+            background: var(--soft-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+        }
+
+        .preview-name {
+            color: var(--accent);
+            font-size: 1.45rem;
+            font-weight: 700;
+            overflow-wrap: anywhere;
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .status-message {
+            min-height: 25px;
+            font-size: 0.92rem;
+        }
+
+        .effect-box {
+            padding: 16px;
+            margin-top: 12px;
+            background: var(--soft-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+        }
+
+        .subject-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            margin-top: 8px;
+            background: var(--soft-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .subject-item span {
+            overflow-wrap: anywhere;
+        }
+
+        .subject-item button {
+            flex-shrink: 0;
+        }
+
+        .progress {
+            height: 9px;
+            background: var(--border-color);
+        }
+
+        .progress-bar {
+            background: var(--accent);
+            transition: width 0.25s;
+        }
+
+        .footer {
+            padding: 22px;
+            color: var(--muted-color);
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .modal-content {
+            color: #243247;
+        }
+
+        .modal-content .muted {
+            color: #64748b;
+        }
+
+        button:focus-visible,
+        a:focus-visible {
+            outline: 3px solid #ffbf47;
+            outline-offset: 3px;
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 28px 16px;
+            }
+
+            .panel {
+                padding: 18px;
+            }
+
+            .page-container {
+                padding: 20px 12px 30px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Page Header -->
+    <header class="hero">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-start gap-3">
+                <div>
+                    <p class="text-uppercase small fw-bold mb-2">
+                        Unit 4 | Interactive Web Development
+                    </p>
+                    <h1 class="fw-bold mb-2">Student Information Portal</h1>
+                    <p class="mb-0">
+                        Explore HTML, CSS, JavaScript, jQuery and Bootstrap
+                        through one interactive example.
+                    </p>
+                </div>
+
+                <button
+                    id="themeButton"
+                    class="btn btn-light btn-sm flex-shrink-0"
+                    type="button"
+                    aria-pressed="false">
+                    🌙 Dark Mode
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-container">
+        <div class="row g-4">
+
+            <!-- Student Registration Form -->
+            <section class="col-lg-7" aria-labelledby="registrationHeading">
+                <div class="panel">
+                    <div class="section-label">Activity 1</div>
+                    <h2 id="registrationHeading" class="h4 fw-bold mb-2">
+                        Student Registration
+                    </h2>
+                    <p class="muted mb-4">
+                        Enter your information and see the preview update
+                        as you type.
+                    </p>
+
+                    <form id="studentForm">
+                        <div class="mb-3">
+                            <label for="studentName" class="form-label">
+                                Student Name *
+                            </label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="studentName"
+                                name="studentName"
+                                placeholder="Enter your full name"
+                                minlength="2"
+                                maxlength="60"
+                                autocomplete="name"
+                                required>
+                            <div class="form-text muted">
+                                Enter at least two characters.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="studentEmail" class="form-label">
+                                Email Address *
+                            </label>
+                            <input
+                                type="email"
+                                class="form-control"
+                                id="studentEmail"
+                                name="studentEmail"
+                                placeholder="student@example.com"
+                                autocomplete="email"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="studentId" class="form-label">
+                                Student ID
+                            </label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="studentId"
+                                name="studentId"
+                                placeholder="e.g. STU-101"
+                                maxlength="20">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="studentCourse" class="form-label">
+                                Select Course *
+                            </label>
+                            <select
+                                class="form-select"
+                                id="studentCourse"
+                                name="studentCourse"
+                                required>
+                                <option value="">Choose a course</option>
+                                <option value="Web Development">
+                                    Web Development
+                                </option>
+                                <option value="Computer Science">
+                                    Computer Science
+                                </option>
+                                <option value="Data Science">
+                                    Data Science
+                                </option>
+                                <option value="Artificial Intelligence">
+                                    Artificial Intelligence
+                                </option>
+                                <option value="Information Technology">
+                                    Information Technology
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="studentYear" class="form-label">
+                                Year of Study *
+                            </label>
+                            <select
+                                class="form-select"
+                                id="studentYear"
+                                name="studentYear"
+                                required>
+                                <option value="">Select year</option>
+                                <option value="First Year">First Year</option>
+                                <option value="Second Year">Second Year</option>
+                                <option value="Third Year">Third Year</option>
+                                <option value="Fourth Year">Fourth Year</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label d-block">
+                                Preferred Learning Mode *
+                            </label>
+
+                            <div class="form-check form-check-inline">
+                                <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="learningMode"
+                                    id="modeOnline"
+                                    value="Online"
+                                    required>
+                                <label class="form-check-label" for="modeOnline">
+                                    Online
+                                </label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="learningMode"
+                                    id="modeClassroom"
+                                    value="Classroom">
+                                <label
+                                    class="form-check-label"
+                                    for="modeClassroom">
+                                    Classroom
+                                </label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="learningMode"
+                                    id="modeHybrid"
+                                    value="Hybrid">
+                                <label class="form-check-label" for="modeHybrid">
+                                    Hybrid
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <label for="profileProgress" class="form-label">
+                                    Form Completion
+                                </label>
+                                <span
+                                    id="progressText"
+                                    class="muted small">0%</span>
+                            </div>
+                            <div
+                                class="progress"
+                                role="progressbar"
+                                aria-label="Form completion"
+                                aria-valuemin="0"
+                                aria-valuemax="100"
+                                aria-valuenow="0"
+                                id="progressContainer">
+                                <div
+                                    id="profileProgress"
+                                    class="progress-bar"
+                                    style="width: 0%">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-wrap gap-2">
+                            <button
+                                type="submit"
+                                class="btn btn-primary">
+                                Register Student
+                            </button>
+
+                            <button
+                                type="reset"
+                                class="btn btn-outline-secondary">
+                                Reset Form
+                            </button>
+                        </div>
+
+                        <p
+                            id="formStatus"
+                            class="status-message mt-3 mb-0"
+                            role="status"
+                            aria-live="polite">
+                        </p>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Live Preview -->
+            <section class="col-lg-5" aria-labelledby="previewHeading">
+                <div class="panel">
+                    <div class="section-label">Activity 2</div>
+                    <h2 id="previewHeading" class="h4 fw-bold mb-2">
+                        Live Student Preview
+                    </h2>
+                    <p class="muted mb-4">
+                        This panel updates automatically when you change
+                        the registration form.
+                    </p>
+
+                    <div class="preview-box">
+                        <div class="small muted mb-1">STUDENT PROFILE</div>
+                        <div id="previewName" class="preview-name">
+                            Your Name
+                        </div>
+                        <hr>
+
+                        <p class="mb-2">
+                            <strong>Email:</strong>
+                            <span id="previewEmail">Not entered</span>
+                        </p>
+
+                        <p class="mb-2">
+                            <strong>Student ID:</strong>
+                            <span id="previewId">Not entered</span>
+                        </p>
+
+                        <p class="mb-2">
+                            <strong>Course:</strong>
+                            <span id="previewCourse">Not selected</span>
+                        </p>
+
+                        <p class="mb-2">
+                            <strong>Year:</strong>
+                            <span id="previewYear">Not selected</span>
+                        </p>
+
+                        <p class="mb-0">
+                            <strong>Learning Mode:</strong>
+                            <span id="previewMode">Not selected</span>
+                        </p>
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-2 mt-3">
+                        <button
+                            type="button"
+                            id="highlightButton"
+                            class="btn btn-outline-primary btn-sm">
+                            Highlight Name
+                        </button>
+
+                        <button
+                            type="button"
+                            id="resetHighlightButton"
+                            class="btn btn-outline-secondary btn-sm">
+                            Remove Highlight
+                        </button>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <h3 class="h6 fw-bold">Interactive Message</h3>
+                    <p id="studentMessage" class="mb-3">
+                        Click a button to display a message.
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-2">
+                        <button
+                            type="button"
+                            id="showMessage"
+                            class="btn btn-primary btn-sm">
+                            Show Message
+                        </button>
+
+                        <button
+                            type="button"
+                            id="changeMessage"
+                            class="btn btn-outline-primary btn-sm">
+                            Change Message
+                        </button>
+
+                        <button
+                            type="button"
+                            id="clearMessage"
+                            class="btn btn-outline-secondary btn-sm">
+                            Clear
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- jQuery Visibility Effects -->
+            <section class="col-md-6" aria-labelledby="visibilityHeading">
+                <div class="panel">
+                    <div class="section-label">Activity 3</div>
+                    <h2 id="visibilityHeading" class="h4 fw-bold">
+                        jQuery Visibility Effects
+                    </h2>
+                    <p class="muted">
+                        Try hide(), show(), and toggle() on the same element.
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                        <button
+                            type="button"
+                            id="hideButton"
+                            class="btn btn-outline-primary btn-sm">
+                            Hide
+                        </button>
+
+                        <button
+                            type="button"
+                            id="showButton"
+                            class="btn btn-outline-primary btn-sm">
+                            Show
+                        </button>
+
+                        <button
+                            type="button"
+                            id="toggleButton"
+                            class="btn btn-primary btn-sm">
+                            Toggle
+                        </button>
+                    </div>
+
+                    <div id="visibilityBox" class="effect-box">
+                        <strong>Visibility Demonstration</strong>
+                        <p class="mb-0 mt-2">
+                            This panel can be hidden, shown, or toggled
+                            using jQuery.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- jQuery Fading Effects -->
+            <section class="col-md-6" aria-labelledby="fadingHeading">
+                <div class="panel">
+                    <div class="section-label">Activity 4</div>
+                    <h2 id="fadingHeading" class="h4 fw-bold">
+                        Fading Effects
+                    </h2>
+                    <p class="muted">
+                        Use fadeIn(), fadeOut(), and fadeToggle().
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                        <button
+                            type="button"
+                            id="fadeOutButton"
+                            class="btn btn-outline-primary btn-sm">
+                            Fade Out
+                        </button>
+
+                        <button
+                            type="button"
+                            id="fadeInButton"
+                            class="btn btn-outline-primary btn-sm">
+                            Fade In
+                        </button>
+
+                        <button
+                            type="button"
+                            id="fadeToggleButton"
+                            class="btn btn-primary btn-sm">
+                            Fade Toggle
+                        </button>
+                    </div>
+
+                    <div id="fadeBox" class="effect-box">
+                        <strong>Fading Demonstration</strong>
+                        <p class="mb-0 mt-2">
+                            Observe how this panel fades in and out.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- jQuery Sliding Effects -->
+            <section class="col-md-6" aria-labelledby="slidingHeading">
+                <div class="panel">
+                    <div class="section-label">Activity 5</div>
+                    <h2 id="slidingHeading" class="h4 fw-bold">
+                        Sliding Effects
+                    </h2>
+                    <p class="muted">
+                        Experiment with slideUp(), slideDown(),
+                        and slideToggle().
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                        <button
+                            type="button"
+                            id="slideUpButton"
+                            class="btn btn-outline-primary btn-sm">
+                            Slide Up
+                        </button>
+
+                        <button
+                            type="button"
+                            id="slideDownButton"
+                            class="btn btn-outline-primary btn-sm">
+                            Slide Down
+                        </button>
+
+                        <button
+                            type="button"
+                            id="slideToggleButton"
+                            class="btn btn-primary btn-sm">
+                            Slide Toggle
+                        </button>
+                    </div>
+
+                    <div id="slidePanel" class="effect-box">
+                        <strong>Sliding Demonstration</strong>
+                        <p class="mb-0 mt-2">
+                            This panel slides vertically when you use
+                            the buttons above.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Subject List -->
+            <section class="col-md-6" aria-labelledby="subjectsHeading">
+                <div class="panel">
+                    <div class="section-label">Activity 6</div>
+                    <h2 id="subjectsHeading" class="h4 fw-bold">
+                        My Learning Topics
+                    </h2>
+                    <p class="muted">
+                        Add topics to your personal learning list.
+                    </p>
+
+                    <form id="subjectForm" class="d-flex gap-2">
+                        <label for="subjectInput" class="visually-hidden">
+                            New learning topic
+                        </label>
+                        <input
+                            type="text"
+                            id="subjectInput"
+                            class="form-control"
+                            placeholder="e.g. JavaScript"
+                            maxlength="50"
+                            required>
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary flex-shrink-0">
+                            Add
+                        </button>
+                    </form>
+
+                    <div
+                        id="subjectList"
+                        class="mt-3"
+                        aria-live="polite">
+                        <p id="emptySubjects" class="muted small">
+                            No topics added yet.
+                        </p>
+                    </div>
+
+                    <button
+                        type="button"
+                        id="clearSubjects"
+                        class="btn btn-outline-secondary btn-sm mt-3">
+                        Clear All Topics
+                    </button>
+                </div>
+            </section>
+
+            <!-- Additional Information -->
+            <section class="col-12" aria-labelledby="detailsHeading">
+                <div class="panel">
+                    <div class="section-label">Activity 7</div>
+                    <h2 id="detailsHeading" class="h4 fw-bold">
+                        Explore the Web Technologies
+                    </h2>
+
+                    <p class="muted">
+                        Open this section to review the role of each
+                        technology used in this demonstration.
+                    </p>
+
+                    <button
+                        type="button"
+                        id="detailsButton"
+                        class="btn btn-primary"
+                        aria-expanded="false"
+                        aria-controls="technologyDetails">
+                        Show Technology Details
+                    </button>
+
+                    <div id="technologyDetails" class="effect-box mt-3">
+                        <h3 class="h6 fw-bold">HTML — Structure</h3>
+                        <p>
+                            HTML defines headings, paragraphs, form fields,
+                            buttons, and other elements on the page.
+                        </p>
+
+                        <h3 class="h6 fw-bold">CSS — Presentation</h3>
+                        <p>
+                            CSS controls colours, spacing, typography,
+                            responsive layout, and visual highlighting.
+                        </p>
+
+                        <h3 class="h6 fw-bold">JavaScript — Behaviour</h3>
+                        <p>
+                            JavaScript responds to events, validates form
+                            data, updates the DOM, and calculates progress.
+                        </p>
+
+                        <h3 class="h6 fw-bold">jQuery — DOM and Effects</h3>
+                        <p>
+                            jQuery provides concise selectors, event methods,
+                            method chaining, and visibility animations.
+                        </p>
+
+                        <h3 class="h6 fw-bold">Bootstrap — Layout</h3>
+                        <p class="mb-0">
+                            Bootstrap supplies responsive grid classes,
+                            form styling, buttons, and utility classes.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p class="mb-1 fw-semibold">
+            Interactive Student Information Portal
+        </p>
+        <p class="mb-0 small">
+            Unit 4 demonstration | HTML · CSS · JavaScript · jQuery · Bootstrap
+        </p>
+    </footer>
+
+    <!-- Registration Confirmation Modal -->
+    <div
+        class="modal fade"
+        id="confirmationModal"
+        tabindex="-1"
+        aria-labelledby="confirmationTitle"
+        aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title fs-5" id="confirmationTitle">
+                        Registration Preview
+                    </h2>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close">
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <p class="text-success fw-bold">
+                        ✓ All required fields passed browser validation.
+                    </p>
+                    <p>
+                        <strong>Name:</strong>
+                        <span id="modalName"></span>
+                    </p>
+                    <p>
+                        <strong>Email:</strong>
+                        <span id="modalEmail"></span>
+                    </p>
+                    <p>
+                        <strong>Student ID:</strong>
+                        <span id="modalId"></span>
+                    </p>
+                    <p>
+                        <strong>Course:</strong>
+                        <span id="modalCourse"></span>
+                    </p>
+                    <p>
+                        <strong>Year:</strong>
+                        <span id="modalYear"></span>
+                    </p>
+                    <p>
+                        <strong>Learning Mode:</strong>
+                        <span id="modalMode"></span>
+                    </p>
+                    <p class="muted small mb-0">
+                        This is a demonstration only. No information has
+                        been sent to a server or saved to a database.
+                    </p>
+                </div>
+
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+    <script>
+        // Wait until the HTML document is ready.
+        $(function () {
+
+            // Cache commonly used elements.
+            const $form = $("#studentForm");
+            const $name = $("#studentName");
+            const $email = $("#studentEmail");
+            const $studentId = $("#studentId");
+            const $course = $("#studentCourse");
+            const $year = $("#studentYear");
+            const $message = $("#studentMessage");
+
+            const confirmationModal = new bootstrap.Modal(
+                document.getElementById("confirmationModal")
+            );
+
+            // Return the selected learning mode.
+            function getLearningMode() {
+                return $('input[name="learningMode"]:checked').val()
+                    || "Not selected";
+            }
+
+            // Update the live student preview.
+            function updatePreview() {
+                const name = $name.val().trim();
+                const email = $email.val().trim();
+                const studentId = $studentId.val().trim();
+                const course = $course.val();
+                const year = $year.val();
+
+                $("#previewName").text(name || "Your Name");
+                $("#previewEmail").text(email || "Not entered");
+                $("#previewId").text(studentId || "Not entered");
+                $("#previewCourse").text(course || "Not selected");
+                $("#previewYear").text(year || "Not selected");
+                $("#previewMode").text(getLearningMode());
+
+                updateProgress();
+            }
+
+            // Calculate completion of the six registration items.
+            function updateProgress() {
+                const checks = [
+                    $name.val().trim().length >= 2,
+                    $email[0].checkValidity() && $email.val().trim() !== "",
+                    $studentId.val().trim() !== "",
+                    $course.val() !== "",
+                    $year.val() !== "",
+                    $('input[name="learningMode"]:checked').length > 0
+                ];
+
+                const completed = checks.filter(Boolean).length;
+                const percentage = Math.round(
+                    (completed / checks.length) * 100
+                );
+
+                $("#profileProgress").css("width", percentage + "%");
+                $("#progressText").text(percentage + "%");
+
+                $("#progressContainer").attr(
+                    "aria-valuenow",
+                    percentage
+                );
+            }
+
+            // Update the preview when form values change.
+            $form.on("input change", "input, select", function () {
+                updatePreview();
+            });
+
+            // Highlight the student name using jQuery method chaining.
+            $("#highlightButton").on("click", function () {
+                $("#previewName")
+                    .addClass("highlight")
+                    .css("text-decoration", "underline")
+                    .attr("title", "Highlighted student name");
+            });
+
+            $("#resetHighlightButton").on("click", function () {
+                $("#previewName")
+                    .removeClass("highlight")
+                    .css("text-decoration", "none")
+                    .removeAttr("title");
+            });
+
+            // Interactive messages.
+            $("#showMessage").on("click", function () {
+                $message
+                    .text("JavaScript makes web pages interactive.")
+                    .addClass("highlight");
+            });
+
+            $("#changeMessage").on("click", function () {
+                $message
+                    .text("jQuery makes many DOM operations concise.")
+                    .addClass("highlight");
+            });
+
+            $("#clearMessage").on("click", function () {
+                $message
+                    .text("Click a button to display a message.")
+                    .removeClass("highlight");
+            });
+
+            // Visibility effects.
+            $("#hideButton").on("click", function () {
+                $("#visibilityBox").stop(true, true).hide(250);
+            });
+
+            $("#showButton").on("click", function () {
+                $("#visibilityBox").stop(true, true).show(250);
+            });
+
+            $("#toggleButton").on("click", function () {
+                $("#visibilityBox").stop(true, true).toggle(250);
+            });
+
+            // Fading effects.
+            $("#fadeOutButton").on("click", function () {
+                $("#fadeBox").stop(true, true).fadeOut(350);
+            });
+
+            $("#fadeInButton").on("click", function () {
+                $("#fadeBox").stop(true, true).fadeIn(350);
+            });
+
+            $("#fadeToggleButton").on("click", function () {
+                $("#fadeBox").stop(true, true).fadeToggle(350);
+            });
+
+            // Sliding effects.
+            $("#slideUpButton").on("click", function () {
+                $("#slidePanel").stop(true, true).slideUp(350);
+            });
+
+            $("#slideDownButton").on("click", function () {
+                $("#slidePanel").stop(true, true).slideDown(350);
+            });
+
+            $("#slideToggleButton").on("click", function () {
+                $("#slidePanel").stop(true, true).slideToggle(350);
+            });
+
+            // Show or hide the technology details.
+            $("#technologyDetails").hide();
+
+            $("#detailsButton").on("click", function () {
+                const $details = $("#technologyDetails");
+                const isVisible = $details.is(":visible");
+
+                $details.stop(true, true).slideToggle(250);
+
+                $(this)
+                    .text(
+                        isVisible
+                            ? "Show Technology Details"
+                            : "Hide Technology Details"
+                    )
+                    .attr("aria-expanded", String(!isVisible));
+            });
+
+            // Add a topic to the learning list.
+            $("#subjectForm").on("submit", function (event) {
+                event.preventDefault();
+
+                const $input = $("#subjectInput");
+                const topic = $input.val().trim();
+
+                if (!topic) {
+                    $input.trigger("focus");
+                    return;
+                }
+
+                // Use text(), not HTML insertion, for user-entered content.
+                const $item = $("<div>").addClass("subject-item");
+                const $label = $("<span>").text(topic);
+                const $remove = $("<button>")
+                    .attr({
+                        type: "button",
+                        "aria-label": "Remove " + topic
+                    })
+                    .addClass("btn btn-outline-danger btn-sm")
+                    .text("Remove");
+
+                $remove.on("click", function () {
+                    $item.slideUp(180, function () {
+                        $item.remove();
+
+                        if ($("#subjectList .subject-item").length === 0) {
+                            $("#emptySubjects").show();
+                        }
+                    });
+                });
+
+                $item.append($label, $remove);
+                $("#emptySubjects").hide();
+                $("#subjectList").append($item.hide());
+                $item.slideDown(200);
+
+                $input.val("").trigger("focus");
+            });
+
+            // Clear the learning list.
+            $("#clearSubjects").on("click", function () {
+                $("#subjectList .subject-item").remove();
+                $("#emptySubjects").show();
+            });
+
+            // Demonstrate switching between light and dark themes.
+            $("#themeButton").on("click", function () {
+                const isDark = $("body").toggleClass("dark-mode")
+                    .hasClass("dark-mode");
+
+                $(this)
+                    .text(isDark ? "☀️ Light Mode" : "🌙 Dark Mode")
+                    .attr("aria-pressed", String(isDark));
+            });
+
+            // Validate the form and display a confirmation modal.
+            $form.on("submit", function (event) {
+                event.preventDefault();
+
+                const form = this;
+
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+
+                    $("#formStatus")
+                        .text("Please correct the highlighted form fields.")
+                        .removeClass("text-success")
+                        .addClass("text-danger");
+
+                    return;
+                }
+
+                const details = {
+                    name: $name.val().trim(),
+                    email: $email.val().trim(),
+                    id: $studentId.val().trim() || "Not provided",
+                    course: $course.val(),
+                    year: $year.val(),
+                    mode: getLearningMode()
+                };
+
+                // Populate the modal using text-safe DOM operations.
+                $("#modalName").text(details.name);
+                $("#modalEmail").text(details.email);
+                $("#modalId").text(details.id);
+                $("#modalCourse").text(details.course);
+                $("#modalYear").text(details.year);
+                $("#modalMode").text(details.mode);
+
+                $("#formStatus")
+                    .text("Validation successful. Review the registration preview.")
+                    .removeClass("text-danger")
+                    .addClass("text-success");
+
+                confirmationModal.show();
+            });
+
+            // Reset the live preview after the form's reset event.
+            $form.on("reset", function () {
+                window.setTimeout(function () {
+                    updatePreview();
+
+                    $("#formStatus")
+                        .text("")
+                        .removeClass("text-success text-danger");
+
+                    $("#previewName")
+                        .removeClass("highlight")
+                        .css("text-decoration", "none")
+                        .removeAttr("title");
+                }, 0);
+            });
+
+            // Initialise the page.
+            updatePreview();
+
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Figure 3.1: Example of a Website Wireframe</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 760px;
+      margin: 30px auto;
+      padding: 16px;
+      color: #222;
+    }
+
+    .wireframe {
+      border: 2px solid #333;
+      text-align: center;
+    }
+
+    .logo {
+      padding: 24px;
+      border-bottom: 2px solid #333;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      border-bottom: 2px solid #333;
+    }
+
+    .navigation span {
+      padding: 14px 20px;
+      border-right: 1px solid #777;
+    }
+
+    .navigation span:last-child {
+      border-right: none;
+    }
+
+    .heading {
+      padding: 32px 12px;
+      border-bottom: 2px solid #333;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .image-area,
+    .main-content {
+      min-height: 180px;
+      padding: 24px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-area {
+      border-right: 2px solid #333;
+    }
+
+    .footer {
+      padding: 22px;
+      border-top: 2px solid #333;
+    }
+
+    .caption {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 14px;
+      font-style: italic;
+    }
+
+    @media (max-width: 480px) {
+      .content {
+        grid-template-columns: 1fr;
+      }
+
+      .image-area {
+        border-right: none;
+        border-bottom: 2px solid #333;
+      }
+
+      .navigation span {
+        padding: 10px;
+      }
+    }
+
+    @media print {
+      body {
+        margin: 0 auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wireframe">
+    <header class="logo">LOGO</header>
+
+    <nav class="navigation" aria-label="Main navigation">
+      <span>Home</span>
+      <span>About</span>
+      <span>Services</span>
+      <span>Contact</span>
+    </nav>
+
+    <section class="heading">
+      <h2>Main Heading</h2>
+    </section>
+
+    <main class="content">
+      <section class="image-area">
+        <p>Image or<br>Illustration</p>
+      </section>
+
+      <section class="main-content">
+        <p>Main Content<br>and Description</p>
+      </section>
+    </main>
+
+    <footer class="footer">Footer</footer>
+  </div>
+
+ </body>
+</html>

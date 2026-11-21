@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en" data-style="aurora" data-mode="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mini Learning Academy - a responsive front-end learning platform demonstration.">
+  <title>Mini Learning Academy | Learn Something Brilliant</title>
+ 
+  <!-- Bootstrap CSS and Bootstrap Icons are loaded from their public CDNs. -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+ 
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <!-- Apply the saved theme before first paint to avoid a light/dark flash.
+       The full logic lives in assets/js/services/theme-service.js. -->
+  <script>
+    (function () {
+      var root = document.documentElement, t = {};
+      try { t = JSON.parse(localStorage.getItem("miniAcademyTheme")) || {}; } catch (e) {}
+      var mode = t.mode || (window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      root.setAttribute("data-mode", mode);
+      root.setAttribute("data-bs-theme", mode);
+      root.setAttribute("data-style", t.style || "aurora");
+    })();
+  </script>
+</head>
+ 
+<body>
+  <a class="visually-hidden-focusable" href="#mainContent">Skip to main content</a>
+ 
+  <nav class="navbar navbar-expand-lg sticky-top" aria-label="Main navigation">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="#home" aria-label="Mini Learning Academy home">
+        <span class="brand-mark"><i class="bi bi-mortarboard-fill"></i></span>
+        Mini<span class="text-primary">Learn</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+        aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav mx-auto my-3 my-lg-0 gap-lg-2">
+          <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#courses">Courses</a></li>
+          <li class="nav-item"><a class="nav-link" href="#dashboard">My Learning</a></li>
+          <li class="nav-item"><a class="nav-link" href="#resources">Resources</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        </ul>
+        <div class="theme-controls me-lg-3" role="group" aria-label="Appearance settings">
+          <div class="dropdown">
+            <button class="theme-btn dropdown-toggle" type="button" id="styleBtn" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Choose visual style">
+              <i class="bi bi-palette2" aria-hidden="true"></i><span id="styleCurrent">Aurora</span>
+            </button>
+            <ul class="dropdown-menu theme-menu" id="styleMenu" role="menu" aria-labelledby="styleBtn"></ul>
+          </div>
+          <button class="theme-btn" type="button" id="modeToggle" aria-pressed="false" aria-label="Switch to dark mode">
+            <i class="bi bi-moon-stars-fill" aria-hidden="true"></i><span class="mode-label">Dark</span>
+          </button>
+        </div>
+        <button class="btn btn-brand" data-bs-toggle="modal" data-bs-target="#enrollModal">
+          Join the Academy <i class="bi bi-arrow-up-right ms-1"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+ 
+  <main id="mainContent">
+    <section class="hero" id="home">
+      <div class="container hero-content">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-7">
+            <span class="eyebrow"><i class="bi bi-stars"></i> A small step towards a brighter future</span>
+            <h1>Learn new skills.<br><span class="text-warning">Build your future.</span></h1>
+            <p>Explore practical courses, learn at your own pace and turn curiosity into confidence. Your next learning journey starts here.</p>
+            <div class="d-flex flex-wrap gap-3 mt-4">
+              <a class="btn btn-light btn-lg fw-bold rounded-3" href="#courses">Explore courses <i class="bi bi-arrow-right ms-1"></i></a>
+              <a class="btn btn-outline-light btn-lg rounded-3" href="#about">Discover the academy</a>
+            </div>
+            <div class="d-flex flex-wrap gap-4 mt-4 small text-white-50">
+              <span><i class="bi bi-check-circle-fill text-warning me-1"></i> Beginner friendly</span>
+              <span><i class="bi bi-check-circle-fill text-warning me-1"></i> Learn at your pace</span>
+              <span><i class="bi bi-check-circle-fill text-warning me-1"></i> Practice oriented</span>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="hero-panel">
+              <div class="d-flex align-items-center justify-content-between mb-3">
+                <div><span class="small text-white-50">ACADEMY SNAPSHOT</span><h5 class="mb-0 text-white">Learning made simple</h5></div>
+                <i class="bi bi-lightning-charge-fill fs-3 text-warning"></i>
+              </div>
+              <div class="row g-2">
+                <div class="col-6"><div class="hero-stat"><strong>06</strong><span class="small text-white-50">Curated courses</span></div></div>
+                <div class="col-6"><div class="hero-stat"><strong>04</strong><span class="small text-white-50">Learning paths</span></div></div>
+                <div class="col-12"><div class="hero-stat d-flex align-items-center gap-3">
+                  <span class="display-6"><i class="bi bi-trophy"></i></span>
+                  <div><strong class="fs-5">Progress that matters</strong><span class="small text-white-50">Build knowledge one lesson at a time.</span></div>
+                </div></div>
+              </div>
+              <div class="d-flex justify-content-between align-items-center mt-3 small text-white-50">
+                <span><i class="bi bi-shield-check me-1"></i> Demo learning environment</span>
+                <span>v1.0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <section class="section-space" aria-labelledby="featuresTitle">
+      <div class="container">
+        <div class="text-center mb-5">
+          <div class="section-kicker">Why learn with us?</div>
+          <h2 class="section-title" id="featuresTitle">A better way to make progress</h2>
+          <p class="section-intro mx-auto">A simple learning experience that keeps the focus on what matters: discovering, practising and improving.</p>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-4"><article class="surface-card p-4">
+            <div class="feature-icon mb-3"><i class="bi bi-compass"></i></div>
+            <h5 class="fw-bold">Clear learning paths</h5><p class="text-secondary mb-0">Find courses organised by topic and difficulty, so you can choose a sensible next step.</p>
+          </article></div>
+          <div class="col-md-4"><article class="surface-card p-4">
+            <div class="feature-icon mb-3"><i class="bi bi-activity"></i></div>
+            <h5 class="fw-bold">Visible progress</h5><p class="text-secondary mb-0">Keep track of enrolled courses and update your progress as you complete learning activities.</p>
+          </article></div>
+          <div class="col-md-4"><article class="surface-card p-4">
+            <div class="feature-icon mb-3"><i class="bi bi-patch-check"></i></div>
+            <h5 class="fw-bold">Practice and feedback</h5><p class="text-secondary mb-0">Try a short quiz, check your answers and identify topics that deserve another look.</p>
+          </article></div>
+        </div>
+      </div>
+    </section>
+ 
+    <section class="section-space pt-0" id="courses" aria-labelledby="coursesTitle">
+      <div class="container">
+        <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-end gap-3 mb-4">
+          <div><div class="section-kicker">Explore and discover</div><h2 class="section-title" id="coursesTitle">Popular learning courses</h2>
+            <p class="section-intro mb-0">Browse the catalogue and find a course that matches your interests.</p></div>
+          <div class="d-flex gap-2 flex-wrap">
+            <div class="input-group" style="max-width:280px">
+              <span class="input-group-text border-end-0"><i class="bi bi-search"></i></span>
+              <input type="search" class="form-control border-start-0" id="courseSearch" placeholder="Search courses..." aria-label="Search courses">
+            </div>
+            <select class="form-select" id="levelFilter" aria-label="Filter courses by level" style="max-width:155px">
+              <option value="all">All levels</option><option value="Beginner">Beginner</option><option value="Intermediate">Intermediate</option>
+            </select>
+          </div>
+        </div>
+        <div class="d-flex flex-wrap gap-2 mb-4" id="categoryFilters" aria-label="Course categories">
+          <button class="filter-btn active" type="button" data-category="All">All courses</button>
+          <button class="filter-btn" type="button" data-category="Technology">Technology</button>
+          <button class="filter-btn" type="button" data-category="Design">Design</button>
+          <button class="filter-btn" type="button" data-category="Business">Business</button>
+        </div>
+        <div class="row g-4" id="courseGrid" aria-live="polite"></div>
+        <div class="empty-state d-none" id="noCourses"><i class="bi bi-search fs-2 d-block mb-2"></i>No courses match your search. Try another keyword or filter.</div>
+      </div>
+    </section>
+ 
+    <section class="dashboard-band section-space" id="dashboard" aria-labelledby="dashboardTitle">
+      <div class="container">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
+          <div><div class="section-kicker">Your learning space</div><h2 class="section-title" id="dashboardTitle">My learning dashboard</h2>
+            <p class="section-intro mb-0">Your enrolments and progress are saved in this browser for demonstration purposes.</p></div>
+          <button class="btn btn-soft" id="resetProgressBtn"><i class="bi bi-arrow-counterclockwise me-1"></i> Reset demo progress</button>
+        </div>
+        <div class="row g-3 mb-4">
+          <div class="col-6 col-lg-3"><div class="dashboard-card"><div class="text-secondary small">Enrolled courses</div><div class="stat-number" id="enrolledCount">0</div><div class="small text-secondary"><i class="bi bi-book me-1"></i>Your active courses</div></div></div>
+          <div class="col-6 col-lg-3"><div class="dashboard-card"><div class="text-secondary small">Lessons completed</div><div class="stat-number" id="lessonsCount">0</div><div class="small text-secondary"><i class="bi bi-check2-circle me-1"></i>Across your courses</div></div></div>
+          <div class="col-6 col-lg-3"><div class="dashboard-card"><div class="text-secondary small">Learning points</div><div class="stat-number" id="pointsCount">0</div><div class="small text-secondary"><i class="bi bi-stars me-1"></i>Earned through practice</div></div></div>
+          <div class="col-6 col-lg-3"><div class="dashboard-card"><div class="text-secondary small">Average progress</div><div class="stat-number" id="averageProgress">0%</div><div class="small text-secondary"><i class="bi bi-graph-up me-1"></i>Keep moving forward</div></div></div>
+        </div>
+        <div class="row g-4">
+          <div class="col-lg-8"><div class="dashboard-card h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3"><h5 class="fw-bold mb-0">Continue learning</h5><span class="pill">Your courses</span></div>
+            <div id="myCourses"><div class="empty-state"><i class="bi bi-journal-bookmark fs-2 d-block mb-2"></i>You have not enrolled in a course yet. Explore the course catalogue to get started.</div></div>
+          </div></div>
+          <div class="col-lg-4"><div class="dashboard-card h-100">
+            <h5 class="fw-bold mb-3">Learning tip</h5>
+            <div class="feature-icon mb-3"><i class="bi bi-lightbulb"></i></div>
+            <p class="fw-semibold">Small, consistent sessions build lasting skills.</p>
+            <p class="text-secondary small mb-3">Set a realistic goal, practise what you learn and revisit topics that feel challenging.</p>
+            <button class="btn btn-soft w-100" data-bs-toggle="modal" data-bs-target="#quizModal"><i class="bi bi-patch-question me-1"></i> Try a knowledge check</button>
+          </div></div>
+        </div>
+      </div>
+    </section>
+ 
+    <section class="section-space" id="resources" aria-labelledby="resourcesTitle">
+      <div class="container">
+        <div class="row g-5 align-items-start">
+          <div class="col-lg-5">
+            <div class="section-kicker">Learn beyond the lesson</div><h2 class="section-title" id="resourcesTitle">Useful learning resources</h2>
+            <p class="section-intro">Use these sample resources to organise your study routine. Replace the demonstration links and media with institution-approved material when adapting this project.</p>
+            <div class="mt-4">
+              <div class="resource-row"><span class="resource-icon"><i class="bi bi-file-earmark-pdf"></i></span><div class="flex-grow-1"><strong class="d-block">Study notes</strong><span class="small text-secondary">Concise topic summaries</span></div><span class="pill">PDF</span></div>
+              <div class="resource-row"><span class="resource-icon"><i class="bi bi-play-circle"></i></span><div class="flex-grow-1"><strong class="d-block">Video lessons</strong><span class="small text-secondary">Learn through demonstrations</span></div><span class="pill">Video</span></div>
+              <div class="resource-row"><span class="resource-icon"><i class="bi bi-code-slash"></i></span><div class="flex-grow-1"><strong class="d-block">Practice tasks</strong><span class="small text-secondary">Apply concepts with code</span></div><span class="pill">Lab</span></div>
+            </div>
+          </div>
+          <div class="col-lg-7">
+            <div class="surface-card p-3 p-md-4">
+              <div class="d-flex justify-content-between align-items-center mb-3"><div><span class="section-kicker">Featured session</span><h5 class="fw-bold mb-0">How the web comes together</h5></div><span class="pill">4 min overview</span></div>
+              <div class="ratio ratio-16x9 rounded-4 overflow-hidden bg-dark">
+                <video controls poster="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80" aria-label="Sample learning video">
+                  <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
+                  Your browser does not support the video element.
+                </video>
+              </div>
+              <p class="small text-secondary mt-3 mb-0">Demonstration media only. In a real academy, this area could contain a lesson video with captions and a transcript.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <section class="section-space pt-0" id="about" aria-labelledby="aboutTitle">
+      <div class="container">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-6">
+            <div class="section-kicker">About the academy</div><h2 class="section-title" id="aboutTitle">Learning should feel clear, useful and achievable.</h2>
+            <p class="section-intro">Mini Learning Academy is a demonstration project created to show how core front-end web technologies can be combined to build a user-friendly educational website. It is a front-end prototype, not a production learning management system.</p>
+            <ul class="list-unstyled mt-4">
+              <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Simple navigation and accessible page structure</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Responsive layouts for mobile, tablet and desktop</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Interactive course discovery and learning activities</li>
+            </ul>
+            <button class="btn btn-brand mt-2" data-bs-toggle="modal" data-bs-target="#enrollModal">Create a learner profile <i class="bi bi-arrow-right ms-1"></i></button>
+          </div>
+          <div class="col-lg-6">
+            <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-indicators">
+                <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Testimonial 1"></button>
+                <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1" aria-label="Testimonial 2"></button>
+                <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2" aria-label="Testimonial 3"></button>
+              </div>
+              <div class="carousel-inner">
+                <div class="carousel-item active"><div class="quote-card"><div class="text-warning mb-3">★★★★★</div><blockquote class="fs-5 fw-semibold">“A clear learning path makes it easier to turn a big goal into manageable steps.”</blockquote><div class="d-flex align-items-center gap-3 mt-4"><span class="avatar">AS</span><div><strong class="d-block">Aarav Sharma</strong><span class="small text-secondary">Student testimonial – sample</span></div></div></div></div>
+                <div class="carousel-item"><div class="quote-card"><div class="text-warning mb-3">★★★★★</div><blockquote class="fs-5 fw-semibold">“Being able to practise and see progress helps me stay motivated.”</blockquote><div class="d-flex align-items-center gap-3 mt-4"><span class="avatar">MP</span><div><strong class="d-block">Meera Patel</strong><span class="small text-secondary">Student testimonial – sample</span></div></div></div></div>
+                <div class="carousel-item"><div class="quote-card"><div class="text-warning mb-3">★★★★★</div><blockquote class="fs-5 fw-semibold">“Short lessons and practical activities make learning feel achievable.”</blockquote><div class="d-flex align-items-center gap-3 mt-4"><span class="avatar">RK</span><div><strong class="d-block">Rohan Kumar</strong><span class="small text-secondary">Student testimonial – sample</span></div></div></div></div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev" aria-label="Previous testimonial"><span class="carousel-control-prev-icon"></span></button>
+              <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next" aria-label="Next testimonial"><span class="carousel-control-next-icon"></span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <section class="section-space pt-0" aria-labelledby="faqTitle">
+      <div class="container">
+        <div class="text-center mb-4"><div class="section-kicker">Need to know</div><h2 class="section-title" id="faqTitle">Frequently asked questions</h2></div>
+        <div class="accordion mx-auto" id="faqAccordion" style="max-width:820px">
+          <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqOne" aria-expanded="true" aria-controls="faqOne">Is this a real online learning platform?</button></h3><div id="faqOne" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion"><div class="accordion-body text-secondary">It is a front-end educational prototype. It demonstrates common learning-platform interactions but does not include a server, database, secure accounts or payment processing.</div></div></div>
+          <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqTwo" aria-expanded="false" aria-controls="faqTwo">Will my course progress be remembered?</button></h3><div id="faqTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body text-secondary">The demonstration stores progress in the browser's localStorage. It remains on the same browser and device, but it is not synchronised across devices or users.</div></div></div>
+          <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqThree" aria-expanded="false" aria-controls="faqThree">Can I add more courses?</button></h3><div id="faqThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body text-secondary">Yes. Add another course object to the courses array in the JavaScript section. The catalogue is generated dynamically from that array.</div></div></div>
+          <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqFour" aria-expanded="false" aria-controls="faqFour">Does the project require installation?</button></h3><div id="faqFour" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body text-secondary">No installation is required. Save the file and open it in a modern browser with an internet connection to load Bootstrap, icons and jQuery from their CDNs.</div></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+ 
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-6"><a class="navbar-brand text-white d-inline-flex align-items-center mb-2" href="#home"><span class="brand-mark"><i class="bi bi-mortarboard-fill"></i></span>MiniLearn</a>
+          <p class="text-white-50 mb-0">A practical front-end project for learning how HTML, CSS, Bootstrap, JavaScript and jQuery work together.</p></div>
+        <div class="col-6 col-md-3"><strong class="d-block mb-2">Explore</strong><ul class="list-unstyled small"><li class="mb-1"><a href="#courses">Courses</a></li><li class="mb-1"><a href="#dashboard">My Learning</a></li><li class="mb-1"><a href="#resources">Resources</a></li></ul></div>
+        <div class="col-6 col-md-3"><strong class="d-block mb-2">Get in touch</strong><p class="small text-white-50 mb-1">Questions about this demo?</p><a href="mailto:hello@example.com" class="small">hello@example.com</a></div>
+      </div>
+      <section class="credits mt-4" id="credits" aria-labelledby="creditsTitle">
+        <h2 id="creditsTitle"><i class="bi bi-heart-fill me-1" aria-hidden="true"></i> Credits &amp; attributions</h2>
+        <ul>
+          <li><strong>Poster image:</strong> photo hosted on <a href="https://unsplash.com/photos/f06f85e504b3" target="_blank" rel="noopener noreferrer">Unsplash</a> (photo ID <code>f06f85e504b3</code>), used under the <a href="https://unsplash.com/license" target="_blank" rel="noopener noreferrer">Unsplash License</a>. Photographer credit is shown on the linked photo page.</li>
+          <li><strong>Sample video:</strong> “flower.mp4”, from the <a href="https://github.com/mdn/interactive-examples" target="_blank" rel="noopener noreferrer">MDN interactive-examples</a> repository (<code>cc0-videos</code> folder), released under <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0 1.0 (public domain dedication)</a>.</li>
+          <li><strong>Interface framework:</strong> <a href="https://getbootstrap.com/" target="_blank" rel="noopener noreferrer">Bootstrap 5.3</a> and <a href="https://icons.getbootstrap.com/" target="_blank" rel="noopener noreferrer">Bootstrap Icons 1.11</a>, MIT License.</li>
+          <li><strong>Scripting library:</strong> <a href="https://jquery.com/" target="_blank" rel="noopener noreferrer">jQuery 3.7</a>, MIT License.</li>
+          <li><strong>Fonts:</strong> system font stacks only (no web fonts downloaded). <strong>Testimonials &amp; people:</strong> fictional sample content.</li>
+        </ul>
+      </section>
+      <hr class="border-secondary my-4">
+      <div class="d-flex flex-column flex-sm-row justify-content-between gap-2 small text-white-50"><span>© <span id="currentYear"></span> Mini Learning Academy. Educational demonstration.</span><a href="#home">Back to top ↑</a></div>
+    </div>
+  </footer>
+ 
+  <!-- Enrolment modal -->
+  <div class="modal fade" id="enrollModal" tabindex="-1" aria-labelledby="enrollModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 rounded-4">
+        <div class="modal-header border-0 px-4 pt-4"><div><span class="section-kicker">Get started</span><h5 class="modal-title fw-bold" id="enrollModalTitle">Create your learner profile</h5></div><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+        <div class="modal-body px-4 pb-4">
+          <form id="enrollmentForm" novalidate>
+            <div class="mb-3"><label for="learnerName" class="form-label fw-semibold">Full name</label><input type="text" class="form-control" id="learnerName" name="learnerName" required minlength="2" placeholder="e.g. Ananya Verma"><div class="invalid-feedback">Please enter at least two characters.</div></div>
+            <div class="mb-3"><label for="learnerEmail" class="form-label fw-semibold">Email address</label><input type="email" class="form-control" id="learnerEmail" name="learnerEmail" required placeholder="name@example.com"><div class="invalid-feedback">Enter a valid email address.</div></div>
+            <div class="mb-3"><label for="learnerInterest" class="form-label fw-semibold">Area of interest</label><select class="form-select" id="learnerInterest" required><option value="">Choose an area</option><option>Technology</option><option>Design</option><option>Business</option></select><div class="invalid-feedback">Please select an area of interest.</div></div>
+            <div class="form-check mb-3"><input class="form-check-input" type="checkbox" id="termsCheck" required><label class="form-check-label small" for="termsCheck">I understand this is a front-end demonstration project.</label><div class="invalid-feedback">Please confirm before continuing.</div></div>
+            <button type="submit" class="btn btn-brand w-100">Save learner profile <i class="bi bi-arrow-right ms-1"></i></button>
+            <p class="small text-secondary mt-3 mb-0"><i class="bi bi-lock me-1"></i>Demo only: information is stored locally in this browser, not sent to a server.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- Quiz modal -->
+  <div class="modal fade" id="quizModal" tabindex="-1" aria-labelledby="quizModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 rounded-4">
+        <div class="modal-header border-0 px-4 pt-4"><div><span class="section-kicker">Quick knowledge check</span><h5 class="modal-title fw-bold" id="quizModalTitle">Web development basics</h5></div><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+        <div class="modal-body px-4 pb-4">
+          <div class="d-flex justify-content-between small text-secondary mb-2"><span id="quizQuestionNumber">Question 1 of 3</span><span id="quizScore">Score: 0</span></div>
+          <div class="progress mb-3"><div class="progress-bar" id="quizProgress" style="width:33%"></div></div>
+          <h6 class="fw-bold mb-3" id="quizQuestion"></h6>
+          <div id="quizOptions"></div>
+          <div class="small mt-3" id="quizFeedback" aria-live="polite"></div>
+          <div class="d-flex justify-content-end mt-3"><button class="btn btn-brand" id="nextQuestionBtn" disabled>Next question <i class="bi bi-arrow-right ms-1"></i></button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="academyToast" class="toast border-0 shadow" role="status" aria-live="polite" aria-atomic="true">
+      <div class="d-flex"><div class="toast-body" id="toastMessage">Welcome to Mini Learning Academy.</div><button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div>
+    </div>
+  </div>
+ 
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Classic scripts, loaded in dependency order: data -> state -> services -> ui -> handlers -> app. -->
+  <script src="assets/js/data/courses.js"></script>
+  <script src="assets/js/data/quiz-questions.js"></script>
+  <script src="assets/js/state/academy-state.js"></script>
+  <script src="assets/js/services/storage-service.js"></script>
+  <script src="assets/js/services/theme-service.js"></script>
+  <script src="assets/js/ui/notifications.js"></script>
+  <script src="assets/js/ui/course-view.js"></script>
+  <script src="assets/js/ui/dashboard-view.js"></script>
+  <script src="assets/js/ui/quiz-view.js"></script>
+  <script src="assets/js/ui/theme-switcher.js"></script>
+  <script src="assets/js/handlers/event-handlers.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!-- Code Listing 4.33: Styled Student Registration Form with JavaScript Validation -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Unit 4: Student Registration</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f0f5fc;
+            color: #263750;
+            line-height: 1.6;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #174a8b, #3678d4);
+            color: white;
+            text-align: center;
+            padding: 35px 20px;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        .page-header p {
+            margin: 0;
+            color: #e5efff;
+        }
+
+        .container {
+            width: min(92%, 520px);
+            margin: 40px auto;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(29, 69, 120, 0.12);
+            border: 1px solid #e0e9f5;
+        }
+
+        .card-header {
+            background: #eaf2ff;
+            padding: 20px 28px;
+            border-bottom: 1px solid #dce8f8;
+        }
+
+        .card-header h2 {
+            margin: 0;
+            color: #174a8b;
+            font-size: 1.35rem;
+        }
+
+        .form-content {
+            padding: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #304765;
+        }
+
+        .required {
+            color: #d93025;
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #cbd8e8;
+            border-radius: 7px;
+            font: inherit;
+            color: #263750;
+            background: #fff;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #3678d4;
+            box-shadow: 0 0 0 3px rgba(54, 120, 212, 0.15);
+        }
+
+        .help-text {
+            display: block;
+            margin-top: 5px;
+            color: #687b94;
+            font-size: 0.88rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 7px;
+            background: #286bd1;
+            color: white;
+            font: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        button:hover {
+            background: #174f9f;
+        }
+
+        button:active {
+            transform: scale(0.99);
+        }
+
+        button:focus-visible {
+            outline: 3px solid #91baff;
+            outline-offset: 3px;
+        }
+
+        #feedback {
+            display: none;
+            margin: 20px 0 0;
+            padding: 12px 14px;
+            border-radius: 7px;
+            font-size: 0.95rem;
+            overflow-wrap: anywhere;
+        }
+
+        #feedback.success {
+            display: block;
+            color: #176b43;
+            background: #e8f7ee;
+            border: 1px solid #a7dfbd;
+        }
+
+        #feedback.error {
+            display: block;
+            color: #a12622;
+            background: #fff0ef;
+            border: 1px solid #f0b8b4;
+        }
+
+        .page-footer {
+            text-align: center;
+            color: #687b94;
+            font-size: 0.85rem;
+            padding: 0 20px 25px;
+        }
+
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 28px 16px;
+            }
+
+            .page-header h1 {
+                font-size: 1.65rem;
+            }
+
+            .container {
+                margin: 25px auto;
+            }
+
+            .card-header,
+            .form-content {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="page-header">
+        <h1>Student Registration</h1>
+        <p>Enter your details to complete registration.</p>
+    </header>
+
+    <main class="container">
+        <section class="form-card">
+            <div class="card-header">
+                <h2>Your Details</h2>
+            </div>
+
+            <div class="form-content">
+                <form id="registrationForm">
+                    <div class="form-group">
+                        <label for="studentName">
+                            Full Name <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="studentName"
+                            name="studentName"
+                            placeholder="Enter your full name"
+                            required
+                            minlength="2"
+                        >
+
+                        <small class="help-text">
+                            Enter at least two characters.
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="studentEmail">
+                            Email Address <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="email"
+                            id="studentEmail"
+                            name="studentEmail"
+                            placeholder="student@example.com"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit">Register</button>
+                </form>
+
+                <p id="feedback" role="status" aria-live="polite"></p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="page-footer">
+        JavaScript Demonstration: Events and Form Validation
+    </footer>
+
+    <script>
+        const form = document.getElementById("registrationForm");
+        const feedback = document.getElementById("feedback");
+        const nameInput = document.getElementById("studentName");
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            feedback.textContent = "";
+            feedback.className = "";
+
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const name = nameInput.value.trim();
+
+            if (name.length < 2) {
+                feedback.textContent =
+                    "Please enter a name containing at least two characters.";
+
+                feedback.classList.add("error");
+                nameInput.focus();
+                return;
+            }
+
+            feedback.textContent =
+                "Registration details are valid. Welcome, " + name + "!";
+
+            feedback.classList.add("success");
+        });
+    </script>
+</body>
+</html>
